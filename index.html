@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanveer Ahammed - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+            color: #2dd4bf;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="bg-[#0a0f16] text-slate-200 font-sans selection:bg-teal-500 selection:text-white">
+
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-teal-600/10 blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px]"></div>
+    </div>
+
+    <nav class="fixed w-full z-50 top-0 bg-[#0a0f16]/80 backdrop-blur-md border-b border-slate-800/50">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#home" class="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">TANVEER AHAMMED</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#home" class="hover:text-teal-400 transition-colors">Home</a>
+                <a href="#about" class="hover:text-teal-400 transition-colors">About</a>
+                <a href="#journey" class="hover:text-teal-400 transition-colors">Journey</a>
+            </div>
+            <a href="#contact" class="px-4 py-2 rounded-md bg-gradient-to-r from-teal-500 to-blue-600 text-white font-medium hover:opacity-90 transition-opacity">Contact Me</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 pt-16">
+        
+        <section id="home" class="min-h-[90vh] flex flex-col justify-center items-start relative">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-mono mb-6 text-teal-400">
+                <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                <span>RAJSHAHI MEDICAL UNIVERSITY • CLASS OF '26</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 text-white">
+                Hello, I am <br />
+                <span id="typed-text" class="bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent typing-cursor"></span>
+            </h1>
+            
+            <div class="relative max-w-2xl mt-6 mb-8">
+                <i class="fa-solid fa-quote-left absolute -top-4 -left-6 text-slate-800 text-4xl -z-10"></i>
+                <p class="text-xl md:text-2xl text-slate-300 font-serif italic border-l-4 border-teal-500 pl-4 py-1">
+                    "Oh, lift me as a wave, a leaf, a cloud!<br/>
+                    I fall upon the thorns of life! I bleed!"
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-4 mt-4">
+                <a href="#journey" class="flex items-center space-x-2 px-6 py-3 rounded-lg bg-slate-100 text-slate-900 font-bold hover:bg-white transition-colors">
+                    <span>My Journey</span>
+                    <i class="fa-solid fa-user-graduate"></i>
+                </a>
+                <a href="https://amartechdiary.blogger.com" target="_blank" class="flex items-center space-x-2 px-6 py-3 rounded-lg bg-slate-900 text-white font-bold border border-slate-800 hover:border-slate-700 transition-colors">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Read My Tech Blog</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 border-t border-slate-800/50">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative group order-2 md:order-1">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-slate-700 to-slate-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                    <div class="relative aspect-square rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                       <img src="Tanveer.jpg" alt="Tanveer Ahammed" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400/0f172a/2dd4bf?text=Upload+Tanveer.jpg'"/>
+                       <div class="absolute bottom-0 w-full bg-[#0a0f16]/90 backdrop-blur-sm py-3 border-t border-slate-800 flex justify-center transition-all duration-500 group-hover:bg-slate-900/80">
+                         <p class="text-teal-400 font-mono text-sm tracking-widest font-bold">NURSING STUDENT</p>
+                       </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">More Than Just a <span class="text-teal-400">Profile</span></h2>
+                    <p class="text-slate-400 mb-4 leading-relaxed">
+                        Born in December 2004, I'm navigating life with a foot in two different worlds: the rigorous, compassionate pursuit of nursing, and the fast-paced, ever-evolving world of technology.
+                    </p>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        When I'm not hitting the nursing books or writing for <strong>Amar Tech Diary</strong>, I immerse myself in video games, great music, and compelling cinema.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                            <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Location</p>
+                            <p class="flex items-center text-sm font-medium"><i class="fa-solid fa-location-dot mr-2 text-teal-500"></i> Rajshahi, BD</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                            <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Languages</p>
+                            <p class="flex items-center text-sm font-medium"><i class="fa-solid fa-globe mr-2 text-blue-500"></i> Bangla, English, Hindi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="py-24 border-t border-slate-800/50">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white">My <span class="text-blue-400">Educational</span> Journey</h2>
+            <div class="max-w-3xl mx-auto relative border-l border-slate-700 ml-3 md:ml-auto md:mr-auto">
+                
+                <div class="mb-10 ml-8 relative group">
+                    <span class="absolute -left-[41px] top-1 flex items-center justify-center w-5 h-5 rounded-full bg-[#0a0f16] border-2 border-teal-500 group-hover:bg-teal-500 transition-colors"></span>
+                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-teal-500/50 transition-colors">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-white flex items-center">
+                                <i class="fa-solid fa-stethoscope mr-2 text-teal-400"></i> Rajshahi Medical University
+                            </h3>
+                            <span class="text-xs font-mono text-teal-400 bg-teal-400/10 px-2 py-1 rounded w-fit mt-2 md:mt-0">Starting May 2026</span>
+                        </div>
+                        <p class="text-slate-400 text-sm mt-2">Pursuing my BSc in Nursing, embarking on a rigorous and rewarding path in healthcare.</p>
+                    </div>
+                </div>
+
+                <div class="mb-10 ml-8 relative group">
+                    <span class="absolute -left-[41px] top-1 flex items-center justify-center w-5 h-5 rounded-full bg-[#0a0f16] border-2 border-slate-600 transition-colors"></span>
+                    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-xl">
+                        <div class="flex justify-between mb-2">
+                            <h3 class="text-lg font-bold text-slate-200">Varendra College, Rajshahi</h3>
+                            <span class="text-xs font-mono text-slate-500">2022 - 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 border-t border-slate-800/50 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Let's <span class="text-teal-400">Connect</span></h2>
+                <p class="text-slate-400 mb-10 text-lg">Whether you want to discuss tech, nursing, or theories about Money Heist, my inbox is open.</p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                    <a href="mailto:tanveerahammed@tutamail.com" class="w-full sm:w-auto flex items-center justify-center space-x-3 px-6 py-4 rounded-lg bg-slate-900 border border-slate-700 text-white hover:bg-slate-800 hover:border-teal-500 transition-all">
+                        <i class="fa-solid fa-envelope text-teal-400"></i>
+                        <span class="font-mono text-sm">tanveerahammed@tutamail.com</span>
+                    </a>
+                    <a href="tel:01763921932" class="w-full sm:w-auto flex items-center justify-center space-x-3 px-6 py-4 rounded-lg bg-slate-900 border border-slate-700 text-white hover:bg-slate-800 hover:border-teal-500 transition-all">
+                        <i class="fa-solid fa-phone text-blue-400"></i>
+                        <span class="font-mono text-sm">01763-921932</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8 text-center text-slate-600 text-sm border-t border-slate-800/50">
+        <p>Built for Tanveer Ahammed. © 2026</p>
+    </footer>
+
+    <script>
+        const words = ['a Nursing Student.', 'a Tech Blogger.', 'a Gamer & Cinephile.', 'based in Rajshahi.'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTextSpan = document.getElementById("typed-text");
+
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) {
+                typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000; // Pause at end of word
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500; // Pause before new word
+            }
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(type, 1000);
+        });
+    </script>
+</body>
+</html>
