@@ -217,6 +217,7 @@
     gap: 14px;
     opacity: 0;
     animation: fadeUp 1s 1.3s forwards;
+    z-index: 5;
   }
 
   .scroll-line {
@@ -723,8 +724,14 @@
 
   /* ——— RESPONSIVE ——— */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
+    .hero { 
+      grid-template-columns: 1fr; 
+      grid-template-rows: auto 50vh; /* Allocates space for the image on mobile */
+    }
+    .hero-right { 
+      display: block; /* Fixed: It was display: none before */
+      position: relative;
+    }
     .about { grid-template-columns: 1fr; padding: 80px 30px; }
     .education { padding: 80px 30px; }
     .interests { padding: 80px 30px; }
@@ -732,8 +739,17 @@
     .languages { grid-template-columns: 1fr; padding: 60px 30px; }
     .contact { grid-template-columns: 1fr; padding: 80px 30px; }
     .hero-left { padding: 60px 30px; }
+    .hero-scroll { display: none; /* Hide scroll prompt on mobile to avoid overlap */ }
     footer { padding: 30px; flex-direction: column; gap: 10px; }
     .edu-item { grid-template-columns: 1fr; gap: 8px; }
+    
+    .highlight-badge {
+      top: 20px;
+      right: 20px;
+      width: 70px;
+      height: 70px;
+      font-size: 8px;
+    }
   }
 
   @media (max-width: 600px) {
@@ -931,7 +947,7 @@
       <span class="int-icon">✍️</span>
       <div class="int-title">Writing & Blogging</div>
       <div class="int-items">
-        <span style="color:var(--gold); font-size:12px;">amartechdiary.blogger.com</span>
+        <span style="color:var(--gold); font-size:12px;">amartechdiary.blogspot.com</span>
         <br><br>
         Sharing thoughts, tech musings, and life reflections with the world.
       </div>
@@ -1000,11 +1016,11 @@
         <div class="contact-link-value">01763-921932</div>
       </div>
     </a>
-    <a href="https://amartechdiary.blogger.com" target="_blank" class="contact-link">
+    <a href="https://amartechdiary.blogspot.com" target="_blank" class="contact-link">
       <div class="contact-link-icon">🔗</div>
       <div class="contact-link-info">
         <div class="contact-link-label">Blog</div>
-        <div class="contact-link-value">amartechdiary.blogger.com</div>
+        <div class="contact-link-value">amartechdiary.blogspot.com</div>
       </div>
     </a>
   </div>
