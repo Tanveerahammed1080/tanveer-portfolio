@@ -1,188 +1,1065 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanveer Ahammed - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s step-start infinite;
-            color: #2dd4bf;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanveer Ahammed — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0a0a0a;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8ca7a;
+    --rust: #b84a2e;
+    --sage: #4a6741;
+    --off: #1a1a1a;
+    --muted: #6b6560;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9997;
+    opacity: 0.6;
+  }
+
+  /* ——— HERO ——— */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px 50px 60px 60px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-name span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 340px;
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.7s forwards;
+  }
+
+  .hero-desc em {
+    color: var(--gold-light);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.9s forwards;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    cursor: none;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+    border: 2px solid var(--gold);
+  }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    border: 2px solid rgba(245,240,232,0.2);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-wrap {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.3s forwards;
+  }
+
+  .hero-photo {
+    width: 100%; height: 100%;
+    background: #1a1208;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 30%, rgba(201,168,76,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(184,74,46,0.1) 0%, transparent 50%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .hero-photo-text {
+    position: absolute;
+    bottom: 40px; left: 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: rgba(245,240,232,0.8);
+    z-index: 3;
+  }
+
+  .hero-vertical-text {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 8px;
+    color: rgba(201,168,76,0.8);
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 1s 1.3s forwards;
+  }
+
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    width: 100%; height: 100%;
+    background: var(--cream);
+    animation: scrollAnim 2s infinite;
+  }
+
+  .scroll-txt {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  /* GRID LINES */
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .grid-lines::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(245,240,232,0.04);
+  }
+
+  /* ——— ABOUT ——— */
+  .about {
+    padding: 120px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    border-top: 1px solid rgba(245,240,232,0.07);
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  .about-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.05);
+    line-height: 1;
+    position: absolute;
+    left: 40px;
+    top: 80px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 24px;
+  }
+
+  .about-bio {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .about-bio strong {
+    color: var(--gold-light);
+    font-weight: 400;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .about-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .detail-item {
+    border-left: 2px solid rgba(201,168,76,0.3);
+    padding-left: 16px;
+  }
+
+  .detail-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    font-family: 'Bebas Neue', sans-serif;
+    margin-bottom: 4px;
+  }
+
+  .detail-value {
+    font-size: 14px;
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  /* ——— EDUCATION ——— */
+  .education {
+    padding: 100px 60px;
+    background: rgba(245,240,232,0.02);
+    border-top: 1px solid rgba(245,240,232,0.07);
+  }
+
+  .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 70px;
+  }
+
+  .edu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--cream);
+  }
+
+  .edu-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.07);
+    position: relative;
+    transition: all 0.3s;
+  }
+  .edu-item:hover { background: rgba(201,168,76,0.03); padding-left: 20px; margin-left: -20px; padding-right: 20px; }
+
+  .edu-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    padding-top: 4px;
+  }
+
+  .edu-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .edu-info p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .edu-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    margin-top: 8px;
+  }
+
+  /* ——— INTERESTS GRID ——— */
+  .interests {
+    padding: 100px 60px;
+    border-top: 1px solid rgba(245,240,232,0.07);
+  }
+
+  .int-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .int-card {
+    background: rgba(245,240,232,0.02);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid rgba(245,240,232,0.05);
+  }
+
+  .int-card:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.2);
+    transform: translateY(-4px);
+  }
+
+  .int-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .int-card:hover::after { transform: scaleX(1); }
+
+  .int-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .int-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  .int-items {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .int-items span {
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  /* ——— LANGUAGES ——— */
+  .languages {
+    padding: 80px 60px;
+    background: rgba(245,240,232,0.02);
+    border-top: 1px solid rgba(245,240,232,0.07);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .lang-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lang-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--cream);
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .lang-bar {
+    flex: 1;
+    height: 2px;
+    background: rgba(245,240,232,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lang-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .lang-level {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    width: 70px;
+    text-align: right;
+  }
+
+  /* ——— CONTACT ——— */
+  .contact {
+    padding: 120px 60px;
+    border-top: 1px solid rgba(245,240,232,0.07);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--cream);
+  }
+  .contact-title em { color: var(--gold); font-style: italic; }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    border: 1px solid rgba(245,240,232,0.08);
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-link::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+  }
+  .contact-link:hover::before { transform: scaleY(1); }
+  .contact-link:hover { border-color: rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); }
+
+  .contact-link-icon {
+    font-size: 20px;
+    width: 32px;
+    text-align: center;
+  }
+
+  .contact-link-info { flex: 1; }
+  .contact-link-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    font-family: 'Bebas Neue', sans-serif;
+    margin-bottom: 2px;
+  }
+  .contact-link-value {
+    font-size: 14px;
+    color: var(--cream);
+  }
+
+  /* ——— FOOTER ——— */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid rgba(245,240,232,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ——— FLOATING ELEMENTS ——— */
+  .float-date {
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(245,240,232,0.2);
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  /* ——— MARQUEE ——— */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid rgba(245,240,232,0.07);
+    border-bottom: 1px solid rgba(245,240,232,0.07);
+    padding: 18px 0;
+    background: rgba(201,168,76,0.03);
+  }
+
+  .marquee-inner {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: rgba(245,240,232,0.2);
+  }
+  .marquee-item span { color: var(--gold); }
+
+  /* ——— ANIMATIONS ——— */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scrollAnim {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* REVEAL ON SCROLL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* HIGHLIGHT BADGE */
+  .highlight-badge {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-align: center;
+    line-height: 1.4;
+    animation: rotateSlow 10s linear infinite;
+    z-index: 5;
+  }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .about { grid-template-columns: 1fr; padding: 80px 30px; }
+    .education { padding: 80px 30px; }
+    .interests { padding: 80px 30px; }
+    .int-grid { grid-template-columns: 1fr 1fr; }
+    .languages { grid-template-columns: 1fr; padding: 60px 30px; }
+    .contact { grid-template-columns: 1fr; padding: 80px 30px; }
+    .hero-left { padding: 60px 30px; }
+    footer { padding: 30px; flex-direction: column; gap: 10px; }
+    .edu-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  @media (max-width: 600px) {
+    .int-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-<body class="bg-[#0a0f16] text-slate-200 font-sans selection:bg-teal-500 selection:text-white">
+<body>
 
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-teal-600/10 blur-[120px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px]"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<section class="hero">
+  <div class="grid-lines"></div>
+  
+  <div class="float-date">BORN · DEC 18 · 2004</div>
+
+  <div class="hero-left">
+    <p class="hero-tag">Portfolio · Rajshahi, Bangladesh</p>
+    <h1 class="hero-name">
+      Tanveer<br>
+      <span>Ahammed</span>
+    </h1>
+    <p class="hero-desc">
+      Future <em>Nursing Professional</em> · Explorer of ideas · 
+      Shaped by the rhythm of Bangla, the hustle of Rajshahi, 
+      and the dream of healing lives.
+    </p>
+    <div class="hero-links">
+      <a href="#about" class="btn btn-primary">Discover Me</a>
+      <a href="#contact" class="btn btn-outline">Let's Connect</a>
     </div>
+  </div>
 
-    <nav class="fixed w-full z-50 top-0 bg-[#0a0f16]/80 backdrop-blur-md border-b border-slate-800/50">
-        <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-            <a href="#home" class="text-base md:text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap">TANVEER AHAMMED</a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#home" class="hover:text-teal-400 transition-colors">Home</a>
-                <a href="#about" class="hover:text-teal-400 transition-colors">About</a>
-                <a href="#journey" class="hover:text-teal-400 transition-colors">Journey</a>
-            </div>
-            <a href="#contact" class="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm rounded-md bg-gradient-to-r from-teal-500 to-blue-600 text-white font-medium hover:opacity-90 transition-opacity whitespace-nowrap ml-2">Contact Me</a>
-        </div>
-    </nav>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <div class="hero-photo">
+        <img src="Tanveer.jpg" alt="Tanveer Ahammed" style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 1;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.8), transparent); z-index: 2;"></div>
+        <div class="hero-photo-text">TANVEER AHAMMED · 2004</div>
+        <div class="hero-vertical-text">RAJSHAHI MEDICAL UNIVERSITY · 2026</div>
+      </div>
+    </div>
+    <div class="highlight-badge">NURSING<br>STUDENT<br>2026</div>
+  </div>
 
-    <main class="max-w-6xl mx-auto px-6 pt-16">
-        
-        <section id="home" class="min-h-[90vh] flex flex-col justify-center items-start relative">
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-mono mb-6 text-teal-400 mt-8 md:mt-0">
-                <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
-                <span>RAJSHAHI MEDICAL UNIVERSITY • CLASS OF '26</span>
-            </div>
-            <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-4 text-white">
-                Hello, I am <br />
-                <span id="typed-text" class="bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent typing-cursor"></span>
-            </h1>
-            
-            <div class="relative max-w-2xl mt-6 mb-8">
-                <i class="fa-solid fa-quote-left absolute -top-4 -left-6 text-slate-800 text-4xl -z-10"></i>
-                <p class="text-lg md:text-2xl text-slate-300 font-serif italic border-l-4 border-teal-500 pl-4 py-1">
-                    "Oh, lift me as a wave, a leaf, a cloud!<br/>
-                    I fall upon the thorns of life! I bleed!"
-                </p>
-            </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-txt">Scroll</span>
+  </div>
+</section>
 
-            <div class="flex flex-wrap gap-4 mt-4">
-                <a href="#journey" class="flex items-center space-x-2 px-6 py-3 rounded-lg bg-slate-100 text-slate-900 font-bold hover:bg-white transition-colors w-full sm:w-auto justify-center">
-                    <span>My Journey</span>
-                    <i class="fa-solid fa-user-graduate"></i>
-                </a>
-                <a href="https://amartechdiary.blogspot.com" target="_blank" class="flex items-center space-x-2 px-6 py-3 rounded-lg bg-slate-900 text-white font-bold border border-slate-800 hover:border-slate-700 transition-colors w-full sm:w-auto justify-center">
-                    <i class="fa-solid fa-book-open"></i>
-                    <span>Read My Tech Blog</span>
-                </a>
-            </div>
-        </section>
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <div class="marquee-item">Rajshahi Medical University <span>✦</span></div>
+    <div class="marquee-item">Nursing Student <span>✦</span></div>
+    <div class="marquee-item">Music · Gaming · Movies <span>✦</span></div>
+    <div class="marquee-item">Bangla · English · Hindi <span>✦</span></div>
+    <div class="marquee-item">Money Heist Fan <span>✦</span></div>
+    <div class="marquee-item">3 Idiots Lover <span>✦</span></div>
+    <div class="marquee-item">Rajshahi, Bangladesh <span>✦</span></div>
+    <div class="marquee-item">Rajshahi Medical University <span>✦</span></div>
+    <div class="marquee-item">Nursing Student <span>✦</span></div>
+    <div class="marquee-item">Music · Gaming · Movies <span>✦</span></div>
+    <div class="marquee-item">Bangla · English · Hindi <span>✦</span></div>
+    <div class="marquee-item">Money Heist Fan <span>✦</span></div>
+    <div class="marquee-item">3 Idiots Fan <span>✦</span></div>
+    <div class="marquee-item">Rajshahi, Bangladesh <span>✦</span></div>
+  </div>
+</div>
 
-        <section id="about" class="py-24 border-t border-slate-800/50">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="relative group order-2 md:order-1">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-slate-700 to-slate-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                    <div class="relative aspect-square rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                       <img src="Tanveer.jpg" alt="Tanveer Ahammed" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400/0f172a/2dd4bf?text=Upload+Tanveer.jpg'"/>
-                       <div class="absolute bottom-0 w-full bg-[#0a0f16]/90 backdrop-blur-sm py-3 border-t border-slate-800 flex justify-center transition-all duration-500 group-hover:bg-slate-900/80">
-                         <p class="text-teal-400 font-mono text-sm tracking-widest font-bold">NURSING STUDENT</p>
-                       </div>
-                    </div>
-                </div>
-                <div class="order-1 md:order-2">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">More Than Just a <span class="text-teal-400">Profile</span></h2>
-                    <p class="text-slate-400 mb-4 leading-relaxed">
-                        Born in December 2004, I'm navigating life with a foot in two different worlds: the rigorous, compassionate pursuit of nursing, and the fast-paced, ever-evolving world of technology.
-                    </p>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        When I'm not hitting the nursing books or writing for <strong>Amar Tech Diary</strong>, I immerse myself in video games, great music, and compelling cinema.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                            <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Location</p>
-                            <p class="flex items-center text-sm font-medium"><i class="fa-solid fa-location-dot mr-2 text-teal-500"></i> Rajshahi, BD</p>
-                        </div>
-                        <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                            <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Languages</p>
-                            <p class="flex items-center text-sm font-medium"><i class="fa-solid fa-globe mr-2 text-blue-500"></i> Bangla, English, Hindi</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section class="about reveal" id="about">
+  <div class="about-number">01</div>
+  <div></div>
+  <div>
+    <div class="section-label">About Me</div>
+    <h2 class="about-title">A soul from the<br>heart of Bangladesh</h2>
+    <p class="about-bio">
+      Born on <strong>December 18, 2004</strong>, in <strong>Rajshahi</strong> — a city of dreams and determination. 
+      I'm on a journey to become a <strong>nursing professional</strong>, currently stepping into 
+      Rajshahi Medical University. Rooted in family, fueled by passion, driven by purpose.
+    </p>
+    <p class="about-bio" style="margin-top: -16px;">
+      Between studying and dreaming, you'll find me lost in <strong>music</strong>, escaping into <strong>video games</strong>, 
+      or watching a good film that changes how I see the world.
+    </p>
+    <div class="about-details">
+      <div class="detail-item">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">Lammonirhat, Rajshahi</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Status</div>
+        <div class="detail-value">Single · 21 years</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">University</div>
+        <div class="detail-value">Rajshahi Medical</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Languages</div>
+        <div class="detail-value">Bangla · English · Hindi</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section id="journey" class="py-24 border-t border-slate-800/50">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white">My <span class="text-blue-400">Educational</span> Journey</h2>
-            <div class="max-w-3xl mx-auto relative border-l border-slate-700 ml-3 md:ml-auto md:mr-auto">
-                
-                <div class="mb-10 ml-8 relative group">
-                    <span class="absolute -left-[41px] top-1 flex items-center justify-center w-5 h-5 rounded-full bg-[#0a0f16] border-2 border-teal-500 group-hover:bg-teal-500 transition-colors"></span>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-teal-500/50 transition-colors">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-xl font-bold text-white flex items-center">
-                                <i class="fa-solid fa-stethoscope mr-2 text-teal-400"></i> Rajshahi Medical University
-                            </h3>
-                            <span class="text-xs font-mono text-teal-400 bg-teal-400/10 px-2 py-1 rounded w-fit mt-2 md:mt-0">Starting May 2026</span>
-                        </div>
-                        <p class="text-slate-400 text-sm mt-2">Pursuing my BSc in Nursing, embarking on a rigorous and rewarding path in healthcare.</p>
-                    </div>
-                </div>
+<section class="education reveal" id="education">
+  <div class="edu-header">
+    <div>
+      <div class="section-label">My Journey</div>
+      <h2 class="edu-title">Education</h2>
+    </div>
+  </div>
 
-                <div class="mb-10 ml-8 relative group">
-                    <span class="absolute -left-[41px] top-1 flex items-center justify-center w-5 h-5 rounded-full bg-[#0a0f16] border-2 border-slate-600 transition-colors"></span>
-                    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-xl">
-                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
-                            <h3 class="text-lg font-bold text-slate-200">Varendra College, Rajshahi</h3>
-                            <span class="text-xs font-mono text-slate-500 mt-2 md:mt-0">2022 - 2024</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="edu-timeline">
+    <div class="edu-item">
+      <div class="edu-year">2026 →<br>Present</div>
+      <div class="edu-info">
+        <h3>Rajshahi Medical University</h3>
+        <p>Embarking on the path of nursing — to understand patient care, heal the sick, and serve humanity with knowledge and compassion.</p>
+        <span class="edu-badge">Current · BSc in Nursing</span>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2022 — 2024</div>
+      <div class="edu-info">
+        <h3>Varendra College, Rajshahi</h3>
+        <p>Higher Secondary Certificate — Science. Built the academic foundation needed for medical entrance, sharpened my analytical thinking.</p>
+        <span class="edu-badge">Completed · HSC</span>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">Class of 2020</div>
+      <div class="edu-info">
+        <h3>Govt. Sara Marwari Model School and College</h3>
+        <p>Secondary education. Where curiosity took shape and the love for science first blossomed.</p>
+        <span class="edu-badge">SSC</span>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">Class of 2022</div>
+      <div class="edu-info">
+        <h3>Seroil Govt. High School, Rajshahi</h3>
+        <p>The foundational years of learning, friendships, and growing up under the Rajshahi sky.</p>
+        <span class="edu-badge">Foundation</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section id="contact" class="py-24 border-t border-slate-800/50 text-center">
-            <div class="max-w-2xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Let's <span class="text-teal-400">Connect</span></h2>
-                <p class="text-slate-400 mb-10 text-lg">Whether you want to discuss tech, nursing, or theories about Money Heist, my inbox is open.</p>
-                
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                    <a href="mailto:tanveerahammed@tutamail.com" class="w-full sm:w-auto flex items-center justify-center space-x-3 px-6 py-4 rounded-lg bg-slate-900 border border-slate-700 text-white hover:bg-slate-800 hover:border-teal-500 transition-all">
-                        <i class="fa-solid fa-envelope text-teal-400"></i>
-                        <span class="font-mono text-sm">tanveerahammed@tutamail.com</span>
-                    </a>
-                    <a href="tel:01763921932" class="w-full sm:w-auto flex items-center justify-center space-x-3 px-6 py-4 rounded-lg bg-slate-900 border border-slate-700 text-white hover:bg-slate-800 hover:border-teal-500 transition-all">
-                        <i class="fa-solid fa-phone text-blue-400"></i>
-                        <span class="font-mono text-sm">01763-921932</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="interests reveal" id="interests">
+  <div class="section-label">What I Love</div>
+  <h2 style="font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:var(--cream); margin-bottom:10px;">
+    Passions & <em style="color:var(--gold);">Interests</em>
+  </h2>
 
-    <footer class="py-8 text-center text-slate-600 text-sm border-t border-slate-800/50">
-        <p>Built for Tanveer Ahammed. © 2026</p>
-    </footer>
+  <div class="int-grid">
+    <div class="int-card">
+      <span class="int-icon">🎵</span>
+      <div class="int-title">Music</div>
+      <div class="int-items">
+        <span>Sorry Dipannita</span> · <span>Paro</span> · 
+        <span>Jab Koi Baat</span> · <span>DJ Chetas</span>
+        <br><br>
+        <small style="color:rgba(107,101,96,0.7);">Bengali melodies & Bollywood beats</small>
+      </div>
+    </div>
+    <div class="int-card">
+      <span class="int-icon">📺</span>
+      <div class="int-title">TV Shows</div>
+      <div class="int-items">
+        <strong style="color:var(--gold-light);">Money Heist</strong>
+        <br><br>
+        The art of the heist, the brilliance of the plan — the Professor would approve.
+      </div>
+    </div>
+    <div class="int-card">
+      <span class="int-icon">🎬</span>
+      <div class="int-title">Movies</div>
+      <div class="int-items">
+        <strong style="color:var(--gold-light);">3 Idiots</strong>
+        <br><br>
+        A film about chasing dreams over degrees — fitting for a medical student who chose this path from the heart.
+      </div>
+    </div>
+    <div class="int-card">
+      <span class="int-icon">🎮</span>
+      <div class="int-title">Gaming</div>
+      <div class="int-items">
+        Video games as a portal — to other worlds, other stories, other lives.
+      </div>
+    </div>
+    <div class="int-card">
+      <span class="int-icon">✍️</span>
+      <div class="int-title">Writing & Blogging</div>
+      <div class="int-items">
+        <span style="color:var(--gold); font-size:12px;">amartechdiary.blogger.com</span>
+        <br><br>
+        Sharing thoughts, tech musings, and life reflections with the world.
+      </div>
+    </div>
+    <div class="int-card">
+      <span class="int-icon">🌍</span>
+      <div class="int-title">Exploration</div>
+      <div class="int-items">
+        Curious about places, cultures, and the many ways humans live and dream across this beautiful earth.
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        const words = ['a Nursing Student.', 'a Tech Blogger.', 'a Gamer & Cinephile.', 'based in Rajshahi.'];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typedTextSpan = document.getElementById("typed-text");
+<section class="languages reveal">
+  <div>
+    <div class="section-label">Communication</div>
+    <h2 style="font-family:'Playfair Display',serif; font-size:44px; font-weight:900; color:var(--cream); line-height:1.1; margin-bottom:20px;">
+      Languages<br>I <em style="color:var(--gold);">speak</em>
+    </h2>
+    <p style="font-size:14px; color:var(--muted); line-height:1.8;">
+      Language is the bridge between hearts. Speaking three languages means three different ways to connect, to care, and to communicate.
+    </p>
+  </div>
+  <div class="lang-visual" id="langVisual">
+    <div class="lang-item">
+      <div class="lang-name">Bangla</div>
+      <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="100%"></div></div>
+      <div class="lang-level">Native</div>
+    </div>
+    <div class="lang-item">
+      <div class="lang-name">English</div>
+      <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="85%"></div></div>
+      <div class="lang-level">Fluent</div>
+    </div>
+    <div class="lang-item">
+      <div class="lang-name">Hindi</div>
+      <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="70%"></div></div>
+      <div class="lang-level">Proficient</div>
+    </div>
+  </div>
+</section>
 
-        function type() {
-            const currentWord = words[wordIndex];
-            if (isDeleting) {
-                typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-            }
+<section class="contact reveal" id="contact">
+  <div>
+    <div class="section-label">Get In Touch</div>
+    <h2 class="contact-title">
+      Let's<br><em>Talk</em>
+    </h2>
+    <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-top:20px; max-width:300px;">
+      Whether you want to connect, collaborate, or just say hello — I'm always open to meaningful conversations.
+    </p>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:tanveerahammed@tutamail.com" class="contact-link">
+      <div class="contact-link-icon">✉</div>
+      <div class="contact-link-info">
+        <div class="contact-link-label">Email</div>
+        <div class="contact-link-value">tanveerahammed@tutamail.com</div>
+      </div>
+    </a>
+    <a href="tel:01763921932" class="contact-link">
+      <div class="contact-link-icon">☎</div>
+      <div class="contact-link-info">
+        <div class="contact-link-label">Phone</div>
+        <div class="contact-link-value">01763-921932</div>
+      </div>
+    </a>
+    <a href="https://amartechdiary.blogger.com" target="_blank" class="contact-link">
+      <div class="contact-link-icon">🔗</div>
+      <div class="contact-link-info">
+        <div class="contact-link-label">Blog</div>
+        <div class="contact-link-value">amartechdiary.blogger.com</div>
+      </div>
+    </a>
+  </div>
+</section>
 
-            let typeSpeed = isDeleting ? 50 : 100;
+<footer>
+  <div class="footer-name">Tanveer Ahammed</div>
+  <div class="footer-copy">Rajshahi, Bangladesh · Nursing Student · © 2026</div>
+</footer>
 
-            if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 2000; // Pause at end of word
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500; // Pause before new word
-            }
-            setTimeout(type, typeSpeed);
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(type, 1000);
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button, .int-card, .edu-item').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(2)'; cursor.style.transform = 'translate(-50%,-50%) scale(0.5)'; });
+    el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; cursor.style.transform = 'translate(-50%,-50%) scale(1)'; });
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Language bars
+  const langObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.querySelectorAll('.lang-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width;
         });
-    </script>
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.languages').forEach(l => langObs.observe(l));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
 </body>
 </html>
